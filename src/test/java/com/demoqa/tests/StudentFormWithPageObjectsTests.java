@@ -1,6 +1,5 @@
 package com.demoqa.tests;
 
-import com.demoqa.helpers.Attach;
 import com.demoqa.pages.RegistrationFormPage;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
@@ -50,7 +49,7 @@ public class StudentFormWithPageObjectsTests extends TestBaseConfig {
     @Link(value = "Testing site", url = "http://demoqa.com/automation-practice-form")
     @DisplayName("Проверка формы регистрации пользователя")
     void fillFormTest() {
-        step("Заполнение формы", ()-> {
+        step("Заполнение формы", () -> {
             registrationFormPage
                     .openPage()
                     .setFirstName(firstname)
@@ -66,22 +65,21 @@ public class StudentFormWithPageObjectsTests extends TestBaseConfig {
                     .setState(TestData.studentState)
                     .setCity(TestData.studentCity)
                     .submitForm();
-            Attach.screenshotAs("Скрин заполненной формыsome ");
         });
 
-        step("Проверка формы", ()-> {
+        step("Проверка формы", () -> {
             registrationFormPage
-                .checkResultsTableVisible()
-                .checkResultsTable("Student Name", firstname + " " + lastName)
-                .checkResultsTable("Student Email", email)
-                .checkResultsTable("Gender", gender)
-                .checkResultsTable("Mobile", mobileNumber)
-                .checkResultsTable("Date of Birth", dayOfBirth + " " + monthBirthday + "," + yearBirthday) //format 21 July,2010
-                .checkResultsTable("Subjects", subject)
-                .checkResultsTable("Hobbies", hobby)
-                .checkResultsTable("Picture", TestData.checkPicture)
-                .checkResultsTable("Address", currentAddress)
-                .checkResultsTable("State and City", TestData.studentState + " " + TestData.studentCity);
+                    .checkResultsTableVisible()
+                    .checkResultsTable("Student Name", firstname + " " + lastName)
+                    .checkResultsTable("Student Email", email)
+                    .checkResultsTable("Gender", gender)
+                    .checkResultsTable("Mobile", mobileNumber)
+                    .checkResultsTable("Date of Birth", dayOfBirth + " " + monthBirthday + "," + yearBirthday) //format 21 July,2010
+                    .checkResultsTable("Subjects", subject)
+                    .checkResultsTable("Hobbies", hobby)
+                    .checkResultsTable("Picture", TestData.checkPicture)
+                    .checkResultsTable("Address", currentAddress)
+                    .checkResultsTable("State and City", TestData.studentState + " " + TestData.studentCity);
         });
     }
 }

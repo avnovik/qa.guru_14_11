@@ -129,10 +129,4 @@ public class RegistrationFormPage {
 
         return this;
     }
-
-    public void checkResultsTableIsClose() {
-        resultsTableComponent.checkCloseModal();
-
-    }
-
 }
