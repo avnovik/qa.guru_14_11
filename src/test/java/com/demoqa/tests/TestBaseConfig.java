@@ -27,7 +27,7 @@ public class TestBaseConfig {
 
     @AfterEach
     void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
+        Attach.screenshotAs("Скрин формы проверки");
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();

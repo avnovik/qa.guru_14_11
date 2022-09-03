@@ -1,9 +1,14 @@
 package com.demoqa.tests;
 
+import com.demoqa.helpers.Attach;
 import com.demoqa.pages.RegistrationFormPage;
 import com.github.javafaker.Faker;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static io.qameta.allure.Allure.step;
 
 public class StudentFormWithPageObjectsTests extends TestBaseConfig {
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
@@ -38,23 +43,34 @@ public class StudentFormWithPageObjectsTests extends TestBaseConfig {
 
 
     @Test
+    @Feature("Проверка формы")
+    @Story("Заполнение всех полей формы с дальнейшей проверкой введенных данных")
+    @Owner("avnovik")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link(value = "Testing site", url = "http://demoqa.com/automation-practice-form")
+    @DisplayName("Проверка формы регистрации пользователя")
     void fillFormTest() {
-        registrationFormPage
-                .openPage()
-                .setFirstName(firstname)
-                .setLastName(lastName)
-                .setEmailInput(email)
-                .setGender(gender)
-                .setMobileNumber(mobileNumber)
-                .setBirthDay(dayOfBirth, monthBirthday, yearBirthday)
-                .setSubjects(subject)
-                .setHobbies(hobby)
-                .uploadPicture(TestData.sourcePicture)
-                .setAddress(currentAddress)
-                .setState(TestData.studentState)
-                .setCity(TestData.studentCity)
-                .submitForm()
+        step("Заполнение формы", ()-> {
+            registrationFormPage
+                    .openPage()
+                    .setFirstName(firstname)
+                    .setLastName(lastName)
+                    .setEmailInput(email)
+                    .setGender(gender)
+                    .setMobileNumber(mobileNumber)
+                    .setBirthDay(dayOfBirth, monthBirthday, yearBirthday)
+                    .setSubjects(subject)
+                    .setHobbies(hobby)
+                    .uploadPicture(TestData.sourcePicture)
+                    .setAddress(currentAddress)
+                    .setState(TestData.studentState)
+                    .setCity(TestData.studentCity)
+                    .submitForm();
+            Attach.screenshotAs("Скрин заполненной формыsome ");
+        });
 
+        step("Проверка формы", ()-> {
+            registrationFormPage
                 .checkResultsTableVisible()
                 .checkResultsTable("Student Name", firstname + " " + lastName)
                 .checkResultsTable("Student Email", email)
@@ -65,7 +81,7 @@ public class StudentFormWithPageObjectsTests extends TestBaseConfig {
                 .checkResultsTable("Hobbies", hobby)
                 .checkResultsTable("Picture", TestData.checkPicture)
                 .checkResultsTable("Address", currentAddress)
-                .checkResultsTable("State and City", TestData.studentState + " " + TestData.studentCity)
-                .checkResultsTableIsClose();
+                .checkResultsTable("State and City", TestData.studentState + " " + TestData.studentCity);
+        });
     }
 }
